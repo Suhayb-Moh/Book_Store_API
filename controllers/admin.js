@@ -37,19 +37,21 @@ exports.getEditProduct = (req, res, next) => {
   });
 };
 
-exports.postEditProduct = (req, res) => {
+exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId;
   const updatedTitle = req.body.title;
   const updatedPrice = req.body.price;
   const updatedImageUrl = req.body.imageUrl;
-  const updatedDescription = req.body.description;
+  const updatedDesc = req.body.description;
   const updatedProduct = new Product(
     prodId,
     updatedTitle,
-    updatedPrice,
     updatedImageUrl,
-    updatedDescription
+    updatedDesc,
+    updatedPrice
   );
+  updatedProduct.save();
+  res.redirect("/admin/products");
 };
 
 exports.getProducts = (req, res, next) => {
